@@ -62,11 +62,11 @@ app.use((req, res, next) => {
 // Routes
 app.get("/home", async (req, res) => {
   try {
-    const blogs = await Blog.find({}).populate('author', 'username');
-    res.render('pages/home', { blogs });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Server Error');
+    const blogs = await Blog.find({}).populate("author");
+    res.render('pages/home', { blogs, user: req.session.user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
   }
 });
 
