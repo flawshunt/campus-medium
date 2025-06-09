@@ -482,3 +482,13 @@ body {
     line-height: 1.5;
   }
 }
+
+
+.card-img-top{
+  height: 300px;
+  width: 300px;
+}
+
+.rounded {
+  
+}
