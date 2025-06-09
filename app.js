@@ -51,14 +51,6 @@ app.use((req, res, next) => {
 
 app.use(blogRoutes);
 
-app.get('/', (req, res) => {
-  res.render('pages/home', { user: req.session.user });
-});
-app.use((req, res, next) => {
-  res.locals.user = req.session.user;
-  next();
-});
-
 // Routes
 app.get("/home", async (req, res) => {
   try {
