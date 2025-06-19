@@ -17,18 +17,27 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  if (!user || !(await user.matchPassword(password))) {
+
+  if (!user) {
     return res.status(401).send('Invalid credentials');
   }
-  
+
+  const isMatch = await user.matchPassword(password);
+  console.log("✅ Password Match:", isMatch);
+
+  if (!isMatch) {
+    return res.status(401).send('Invalid credentials');
+  }
+
   req.session.user = {
     _id: user._id,
     username: user.username,
     email: user.email
   };
-  
+
   res.redirect('/home');
 });
+
 
 
 // Logout

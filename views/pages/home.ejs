@@ -46,7 +46,10 @@
                             <%= blog.content.length > 100 ? blog.content.substring(0, 100) + '...' : blog.content %>
                         </p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">By <%= blog.author.username || 'Unknown Author' %></small>
+                            <small class="text-muted">
+                                    By <%= blog.author && blog.author.username ? blog.author.username : 'Unknown Author' %>
+                            </small>
+
                             <small class="text-muted">
                                 Published on <%= new Date(blog.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
                             </small>

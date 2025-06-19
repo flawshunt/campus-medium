@@ -166,6 +166,10 @@ app.get("/explore", async (req, res) => {
 });
 
 
+app.get("/about", (req, res) => {
+  res.render("pages/about.ejs");
+})
+
 
 app.listen(8080, () => {
   console.log("Server is listening");

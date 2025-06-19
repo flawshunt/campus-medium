@@ -1,0 +1,534 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="about-page">
+    <!-- Hero Section -->
+    <section class="hero-section text-white py-5">
+        <div class="container">
+            <div class="row align-items-center min-vh-50">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">About BlogSite</h1>
+                    <p class="lead mb-4">Empowering voices, connecting minds, and building a community where every story matters.</p>
+                    <div class="d-flex gap-3">
+                        <a href="/register" class="btn btn-light btn-lg">Join Our Community</a>
+                        <a href="/explore" class="btn btn-outline-light btn-lg">Explore Stories</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="hero-illustration">
+                        <i class="fas fa-users fa-10x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-4">Our Mission</h2>
+                    <p class="lead text-muted mb-5">
+                        At BlogSite, we believe that everyone has a story worth telling. Our platform provides a space 
+                        where writers, thinkers, and creators can share their perspectives, connect with like-minded 
+                        individuals, and contribute to meaningful conversations that shape our world.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-5 fw-bold mb-4">Why Choose BlogSite?</h2>
+                    <p class="lead text-muted">
+                        We've built a platform that puts writers and readers first, with features designed to enhance 
+                        your blogging experience.
+                    </p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-edit fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Rich Text Editor</h4>
+                        <p class="text-muted">
+                            Create beautiful, formatted content with our intuitive rich text editor. 
+                            Add images, links, and styling with ease.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-users fa-3x text-success"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Community Driven</h4>
+                        <p class="text-muted">
+                            Connect with fellow writers and readers. Comment, like, and engage 
+                            with content that resonates with you.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-search fa-3x text-info"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Discover Content</h4>
+                        <p class="text-muted">
+                            Find articles that interest you with our powerful search and 
+                            categorization system. Explore by tags and topics.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-mobile-alt fa-3x text-warning"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Mobile Friendly</h4>
+                        <p class="text-muted">
+                            Read and write on the go. Our responsive design ensures a 
+                            great experience on all devices.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-shield-alt fa-3x text-danger"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Safe & Secure</h4>
+                        <p class="text-muted">
+                            Your data and privacy are our priority. We use industry-standard 
+                            security measures to protect your information.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-chart-line fa-3x text-purple"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Analytics</h4>
+                        <p class="text-muted">
+                            Track your blog's performance with detailed analytics. 
+                            See how your content is performing and growing.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-5 fw-bold mb-4">Meet Our Team</h2>
+                    <p class="lead text-muted">
+                        The passionate individuals behind BlogSite who are dedicated to creating 
+                        the best blogging experience for our community.
+                    </p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="team-member text-center">
+                        <div class="member-photo mb-3">
+                            <img src="/images/team/member1.jpg" alt="Sarah Johnson" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
+                        </div>
+                        <h5 class="fw-bold">Sarah Johnson</h5>
+                        <p class="text-muted mb-2">Founder & CEO</p>
+                        <p class="small text-muted">
+                            Passionate about connecting writers and readers through technology.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="text-muted me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-muted"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="team-member text-center">
+                        <div class="member-photo mb-3">
+                            <img src="/images/team/member2.jpg" alt="Mike Chen" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
+                        </div>
+                        <h5 class="fw-bold">Mike Chen</h5>
+                        <p class="text-muted mb-2">Lead Developer</p>
+                        <p class="small text-muted">
+                            Full-stack developer with a love for clean code and user experience.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="text-muted me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-muted"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="team-member text-center">
+                        <div class="member-photo mb-3">
+                            <img src="/images/team/member3.jpg" alt="Emily Rodriguez" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
+                        </div>
+                        <h5 class="fw-bold">Emily Rodriguez</h5>
+                        <p class="text-muted mb-2">Community Manager</p>
+                        <p class="small text-muted">
+                            Building and nurturing our amazing community of writers and readers.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="text-muted me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-muted"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="team-member text-center">
+                        <div class="member-photo mb-3">
+                            <img src="/images/team/member4.jpg" alt="David Kim" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
+                        </div>
+                        <h5 class="fw-bold">David Kim</h5>
+                        <p class="text-muted mb-2">UX Designer</p>
+                        <p class="small text-muted">
+                            Creating intuitive and beautiful experiences for our users.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="text-muted me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="fab fa-dribbble"></i></a>
+                            <a href="#" class="text-muted"><i class="fab fa-behance"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-item">
+                        <h3 class="display-4 fw-bold mb-2" data-count="10000">0</h3>
+                        <p class="lead">Active Writers</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-item">
+                        <h3 class="display-4 fw-bold mb-2" data-count="50000">0</h3>
+                        <p class="lead">Published Articles</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-item">
+                        <h3 class="display-4 fw-bold mb-2" data-count="100000">0</h3>
+                        <p class="lead">Monthly Readers</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-item">
+                        <h3 class="display-4 fw-bold mb-2" data-count="25">0</h3>
+                        <p class="lead">Countries</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-5 fw-bold mb-4">Our Values</h2>
+                    <p class="lead text-muted">
+                        The principles that guide everything we do at BlogSite.
+                    </p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="value-item d-flex">
+                        <div class="value-icon me-4">
+                            <i class="fas fa-heart fa-2x text-danger"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">Authenticity</h5>
+                            <p class="text-muted">
+                                We believe in genuine voices and authentic storytelling. Every story 
+                                has value, and we encourage writers to be true to themselves.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="value-item d-flex">
+                        <div class="value-icon me-4">
+                            <i class="fas fa-handshake fa-2x text-success"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">Community</h5>
+                            <p class="text-muted">
+                                Building connections and fostering meaningful relationships between 
+                                writers and readers is at the heart of what we do.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="value-item d-flex">
+                        <div class="value-icon me-4">
+                            <i class="fas fa-lightbulb fa-2x text-warning"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">Innovation</h5>
+                            <p class="text-muted">
+                                We continuously improve our platform with new features and 
+                                technologies to enhance the blogging experience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="value-item d-flex">
+                        <div class="value-icon me-4">
+                            <i class="fas fa-globe fa-2x text-info"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">Inclusivity</h5>
+                            <p class="text-muted">
+                                We welcome writers and readers from all backgrounds, cultures, 
+                                and perspectives to share their unique stories.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-5 fw-bold mb-4">Our Journey</h2>
+                    <p class="lead text-muted">
+                        From a simple idea to a thriving community of writers and readers.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-primary"></div>
+                            <div class="timeline-content">
+                                <h6 class="text-primary fw-bold">2022</h6>
+                                <h5 class="fw-bold">The Beginning</h5>
+                                <p class="text-muted">
+                                    BlogSite was founded with a simple mission: to create a platform 
+                                    where everyone can share their stories and connect with others.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-success"></div>
+                            <div class="timeline-content">
+                                <h6 class="text-success fw-bold">2023</h6>
+                                <h5 class="fw-bold">Growing Community</h5>
+                                <p class="text-muted">
+                                    We reached 1,000 active writers and launched our mobile-responsive 
+                                    design to serve readers on all devices.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-info"></div>
+                            <div class="timeline-content">
+                                <h6 class="text-info fw-bold">2024</h6>
+                                <h5 class="fw-bold">New Features</h5>
+                                <p class="text-muted">
+                                    Introduced advanced analytics, rich text editing, and enhanced 
+                                    community features to improve the user experience.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-warning"></div>
+                            <div class="timeline-content">
+                                <h6 class="text-warning fw-bold">Future</h6>
+                                <h5 class="fw-bold">What's Next</h5>
+                                <p class="text-muted">
+                                    We're working on AI-powered content recommendations, podcast 
+                                    integration, and collaborative writing features.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-4">Ready to Share Your Story?</h2>
+                    <p class="lead mb-4">
+                        Join thousands of writers who have already made BlogSite their home for sharing ideas, 
+                        connecting with readers, and building their audience.
+                    </p>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="/register" class="btn btn-light btn-lg">
+                            <i class="fas fa-user-plus me-2"></i>Get Started Today
+                        </a>
+                        <a href="/explore" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-compass me-2"></i>Explore Content
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.about-page .hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 60vh;
+    margin-top: 4.8rem;
+}
+
+.about-page .feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-page .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.about-page .team-member {
+    transition: transform 0.3s ease;
+}
+
+.about-page .team-member:hover {
+    transform: translateY(-5px);
+}
+
+.about-page .timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.about-page .timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #dee2e6;
+}
+
+.about-page .timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.about-page .timeline-marker {
+    position: absolute;
+    left: -22px;
+    top: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px #dee2e6;
+}
+
+.about-page .timeline-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.about-page .value-item {
+    padding: 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.about-page .value-item:hover {
+    background-color: #f8f9fa;
+}
+
+.about-page .stat-item h3 {
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .about-page .hero-section {
+        min-height: 50vh;
+    }
+    
+    .about-page .timeline {
+        padding-left: 20px;
+    }
+    
+    .about-page .timeline-marker {
+        left: -17px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate counters
+    const counters = document.querySelectorAll('[data-count]');
+    
+    const animateCounter = (counter) => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                counter.textContent = target.toLocaleString();
+                clearInterval(timer);
+            } else {
+                counter.textContent = Math.floor(current).toLocaleString();
+            }
+        }, 16);
+    };
+    
+    // Intersection Observer for counter animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+    
+    counters.forEach(counter => {
+        observer.observe(counter);
+    });
+});
+</script>
