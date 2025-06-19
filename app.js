@@ -157,13 +157,17 @@ app.delete('/blogs/:id', isAuthor, async (req, res) => {
 
 app.get("/explore", async (req, res) => {
   try {
-    const blogs = await Blog.find().sort({ createdAt: -1 });
+    const blogs = await Blog.find()
+      .sort({ createdAt: -1 })
+      .populate("author") // ✅ This line is key
+      .lean(); // Optional: speeds up EJS rendering
     res.render("pages/explore", { blogs });
   } catch (err) {
     console.error(err);
     res.status(500).send("Failed to load blogs");
   }
 });
+
 
 
 app.get("/about", (req, res) => {
