@@ -1,38 +1,241 @@
 <% layout('layouts/boilerplate') %>
 
+<style>
+  /* Custom Blog Styling */
+  .blog-article {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.7;
+    color: #2c3e50;
+  }
+
+  .blog-article h1 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    color: #1a252f;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-category-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 25px;
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+  }
+
+  .author-section {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border-left: 4px solid #667eea;
+    margin-bottom: 2rem;
+  }
+
+  .author-name {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .author-name:hover {
+    color: #667eea;
+    text-decoration: none;
+  }
+
+  .publish-date {
+    color: #6c757d;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  .blog-image-container {
+    position: relative;
+    margin: 2rem 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .blog-image-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  .blog-cover-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-content {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #34495e;
+    margin-top: 2rem;
+  }
+
+  .blog-content p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+  }
+
+  .blog-content .lead {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #2c3e50;
+    border-left: 4px solid #667eea;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 1.5rem;
+    border-radius: 10px;
+  }
+
+  .container {
+    max-width: 900px;
+  }
+
+  /* Reading Progress Bar */
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    z-index: 1000;
+    transition: width 0.3s ease;
+  }
+
+  /* Enhanced Toast Styling */
+  .toast {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+
+  .toast-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+
+  .toast-body {
+    color: white;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .blog-article h1 {
+      font-size: 2rem;
+    }
+    
+    .blog-cover-image {
+      height: 250px;
+    }
+    
+    .blog-content {
+      font-size: 1rem;
+    }
+    
+    .author-section {
+      padding: 1rem;
+    }
+  }
+
+  /* Smooth Animations */
+  .blog-article {
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Selection Styling */
+  ::selection {
+    background: rgba(102, 126, 234, 0.2);
+    color: #2c3e50;
+  }
+
+  /* Scroll Behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus States for Accessibility */
+  .author-name:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+  }
+</style>
+
+<!-- Reading Progress Bar -->
+<div class="reading-progress" id="readingProgress"></div>
+
 <!-- Blog Content -->
 <div class="container py-5 mt-4">
   <div class="row">
-    <div class="col-lg-8 mx-auto">
+    <div class="col-lg-10 mx-auto">
       <!-- Blog Header -->
       <article class="blog-article">
-        <header class="mb-4">
-          <span class="badge bg-primary mb-3"><%= blog.category %></span>
-          <h1 class="display-5 fw-bold mb-4">
+        <header class="mb-5">
+          <span class="badge blog-category-badge mb-3"><%= blog.category %></span>
+          <h1 class="display-4 fw-bold mb-4">
             <%= blog.title %>
           </h1>
 
           <!-- Author Info -->
-          <div class="d-flex align-items-center mb-4">
-            
-            <div>
-              <h6 class="mb-0">
-                <a href="#" class="text-decoration-none"><%= blog.author.username || 'Unknown Author' %></a>
-              </h6>
-              <small class="text-muted">
-                Published on <%= new Date(blog.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
-              </small>
+          <div class="author-section">
+            <div class="d-flex align-items-center">
+              <div class="me-3">
+                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" 
+                     style="width: 50px; height: 50px; font-size: 1.5rem; color: white;">
+                  <%= (blog.author.username || 'U').charAt(0).toUpperCase() %>
+                </div>
+              </div>
+              <div>
+                <h6 class="mb-1">
+                  <a href="#" class="author-name"><%= blog.author.username || 'Unknown Author' %></a>
+                </h6>
+                <small class="publish-date">
+                  Published on <%= new Date(blog.createdAt).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  }) %>
+                </small>
+              </div>
             </div>
           </div>
         </header>
 
         <!-- Cover Image -->
-        <div class="d-flex justify-content-center mb-4">
+        <div class="blog-image-container">
           <img
             src="<%= blog.imageUrl || 'https://picsum.photos/800/400?random=ai' %>"
             alt="<%= blog.title %>"
-            class="rounded shadow"
-            style="height: 500px; width: auto; object-fit: cocver;"
+            class="blog-cover-image"
           />
         </div>
 
@@ -42,6 +245,24 @@
             <%= blog.content %>
           </p>
         </div>
+
+        <!-- Article Footer -->
+        <footer class="mt-5 pt-4 border-top">
+          <div class="row">
+            <div class="col-md-6">
+              <small class="text-muted">
+                <i class="fas fa-calendar-alt me-2"></i>
+                Last updated: <%= new Date(blog.updatedAt || blog.createdAt).toLocaleDateString() %>
+              </small>
+            </div>
+            <div class="col-md-6 text-md-end">
+              <small class="text-muted">
+                <i class="fas fa-tag me-2"></i>
+                Category: <%= blog.category %>
+              </small>
+            </div>
+          </div>
+        </footer>
       </article>
     </div>
   </div>
@@ -51,12 +272,48 @@
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
   <div id="actionToast" class="toast" role="alert">
     <div class="toast-header">
-      <i class="fas fa-info-circle text-primary me-2"></i>
+      <i class="fas fa-info-circle me-2"></i>
       <strong class="me-auto">BlogSite</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
     </div>
     <div class="toast-body" id="toastMessage">
       Action completed successfully!
     </div>
   </div>
 </div>
+
+<script>
+  // Reading Progress Bar
+  window.addEventListener('scroll', function() {
+    const article = document.querySelector('.blog-article');
+    const progressBar = document.getElementById('readingProgress');
+    
+    if (article && progressBar) {
+      const articleTop = article.offsetTop;
+      const articleHeight = article.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const scrollTop = window.pageYOffset;
+      
+      const progress = Math.min(
+        Math.max((scrollTop - articleTop + windowHeight/2) / articleHeight * 100, 0),
+        100
+      );
+      
+      progressBar.style.width = progress + '%';
+    }
+  });
+
+  // Smooth scroll for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+</script>

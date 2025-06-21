@@ -1,97 +1,499 @@
 <% layout('layouts/boilerplate') %>
 
-
-    <!-- Hero Section -->
-    <section class="hero-section text-white py-5">
-        <div class="container">
-            <div class="row align-items-center min-vh-100">
-                <div class="col-lg-6">
-                    <h1 class="display-4 fw-bold mb-4 animate-fade-in">Share Your Stories</h1>
-                    <p class="lead mb-4 animate-fade-in-delay">Join our community of writers and readers. Create, share, and discover amazing content that inspires and educates.</p>
-                    <% if (typeof user !== 'undefined' && user) { %>
-                    <!-- If logged in -->
-                    <a href="/dashboard" class="btn btn-primary btn-lg me-3">Dashboard</a>
-                    <a href="/logout" class="btn btn-outline-light btn-lg">Logout</a>
-                    <% } else { %>
-                    <!-- If NOT logged in -->
-                    <a href="/register" class="btn btn-light btn-lg me-3">Get Started</a>
-                    <a href="/login" class="btn btn-outline-light btn-lg">Login</a>
-                    <% } %>
-                </div>
-                <div class="col-lg-6 d-none d-lg-block">
-                    <div class="hero-image-container">
-                        <div class="floating-card">
-                            <i class="fas fa-pen-fancy fa-3x text-primary"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-  <!-- Trending Blogs -->
-<section class="py-5">
+<!-- Hero Section -->
+<section class="hero-section text-white py-5">
   <div class="container">
-    <h2 class="text-center mb-5">New Blogs</h2>
-    <div class="row g-4">
-
-      <% blogs.forEach(blog => { %>
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100 d-flex flex-column">
-            <!-- Blog Image -->
-            <img src="<%= blog.imageUrl || 'https://picsum.photos/400/250?random=1' %>" class="card-img-top" alt="Blog Image">
-
-            <!-- Blog Content -->
-            <div class="card-body d-flex flex-column flex-grow-1">
-              <span class="badge bg-primary"><%= blog.category %></span>
-              <h5 class="card-title mt-2"><%= blog.title %></h5>
-              <p class="card-text">
-                <%= blog.content.length > 100 ? blog.content.substring(0, 100) + '...' : blog.content %>
-              </p>
-
-              <!-- Author Info Pushed to Bottom -->
-              <div class="mt-auto">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-2"
-                      style="width: 30px; height: 30px; font-size: 14px; font-weight: bold;">
-                      <%= blog.author && blog.author.username ? blog.author.username.charAt(0).toUpperCase() : '?' %>
-                    </div>
-                    <small class="text-muted">
-                      By <%= blog.author && blog.author.username ? blog.author.username : 'Unknown Author' %>
-                    </small>
-                  </div>
-                  <small class="text-muted">
-                    Published on <%= new Date(blog.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card Footer -->
-            <div class="card-footer bg-white border-0">
-              <a href="/blogs/<%= blog._id %>" class="btn btn-outline-primary btn-sm w-100">Read More</a>
-            </div>
+    <div class="row align-items-center min-vh-100">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4 animate-fade-in">
+          Share Your Stories
+        </h1>
+        <p class="lead mb-4 animate-fade-in-delay">
+          Join a growing community of writers and readers. Create and explore
+          meaningful stories that inform, inspire, and connect.
+        </p>
+        <% if (typeof user !== 'undefined' && user) { %>
+        <!-- If logged in -->
+        <a href="/dashboard" class="btn btn-primary btn-lg me-3">Dashboard</a>
+        <a href="/logout" class="btn btn-outline-light btn-lg">Logout</a>
+        <% } else { %>
+        <!-- If NOT logged in -->
+        <a href="/register" class="btn btn-light btn-lg me-3">Get Started</a>
+        <a href="/login" class="btn btn-outline-light btn-lg">Login</a>
+        <% } %>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="hero-image-container">
+          <div class="floating-card">
+            <i class="fas fa-pen-fancy fa-3x text-primary"></i>
           </div>
         </div>
-      <% }) %>
-
-    </div>
-
-    <!-- Explore Button -->
-    <div class="text-center mt-5">
-      <a href="/explore" class="btn btn-primary btn-lg">View All Blogs</a>
+      </div>
     </div>
   </div>
 </section>
 
-    <!-- Call to Action -->
-    <section class="cta-section text-white py-5">
-    
-        <div class="container text-center">
-            <h2 class="mb-4">Ready to Start Writing?</h2>
-            <p class="lead mb-4">Join thousands of writers sharing their stories and insights</p>
-            <a href="/register" class="btn btn-light btn-lg">Join Our Community</a>
+<!-- NEW: Popular Categories Section -->
+<section class="popular-categories py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-bold">Explore Categories</h2>
+      <p class="lead text-muted">
+        Discover stories across different topics and interests
+      </p>
+    </div>
+
+    <!-- Horizontal Scroll Container -->
+    <div class="categories-scroll d-flex gap-4 overflow-auto pb-3">
+      <!-- All -->
+      <a
+        href="#"
+        class="text-decoration-none text-dark category-filter"
+        data-category="All"
+      >
+        <div
+          class="category-item text-center p-4 flex-shrink-0"
+          style="min-width: 250px"
+        >
+          <div class="category-icon-wrapper mb-3">
+            <i class="fas fa-th-large fa-3x text-dark"></i>
+          </div>
+          <h5 class="fw-bold">All</h5>
+          <p class="text-muted">Show all blog posts</p>
+          <span class="category-count badge bg-dark" data-category-count="All"
+            >0 Posts</span
+          >
         </div>
-    </section>
+      </a>
+
+      <!-- Technology -->
+      <a
+        href="#"
+        class="text-decoration-none text-dark category-filter"
+        data-category="Technology"
+      >
+        <div
+          class="category-item text-center p-4 flex-shrink-0"
+          style="min-width: 250px"
+        >
+          <div class="category-icon-wrapper mb-3">
+            <i class="fas fa-laptop-code fa-3x text-primary"></i>
+          </div>
+          <h5 class="fw-bold">Technology</h5>
+          <p class="text-muted">Latest trends in tech and programming</p>
+          <span
+            class="category-count badge bg-primary"
+            data-category-count="Technology"
+            >0 Posts</span
+          >
+        </div>
+      </a>
+
+      <!-- Life Style -->
+      <a
+        href="#"
+        class="text-decoration-none text-dark category-filter"
+        data-category="Life Style"
+      >
+        <div
+          class="category-item text-center p-4 flex-shrink-0"
+          style="min-width: 250px"
+        >
+          <div class="category-icon-wrapper mb-3">
+            <i class="fas fa-palette fa-3x text-success"></i>
+          </div>
+          <h5 class="fw-bold">Life Style</h5>
+          <p class="text-muted">Creative insights and design inspiration</p>
+          <span
+            class="category-count badge bg-success"
+            data-category-count="Life Style"
+            >0 Posts</span
+          >
+        </div>
+      </a>
+
+      <!-- Travel -->
+      <a
+        href="#"
+        class="text-decoration-none text-dark category-filter"
+        data-category="Travel"
+      >
+        <div
+          class="category-item text-center p-4 flex-shrink-0"
+          style="min-width: 250px"
+        >
+          <div class="category-icon-wrapper mb-3">
+            <i class="fas fa-plane fa-3x text-info"></i>
+          </div>
+          <h5 class="fw-bold">Travel</h5>
+          <p class="text-muted">Adventures and travel experiences</p>
+          <span
+            class="category-count badge bg-info"
+            data-category-count="Travel"
+            >0 Posts</span
+          >
+        </div>
+      </a>
+
+      <!-- Food -->
+      <a
+        href="#"
+        class="text-decoration-none text-dark category-filter"
+        data-category="Food"
+      >
+        <div
+          class="category-item text-center p-4 flex-shrink-0"
+          style="min-width: 250px"
+        >
+          <div class="category-icon-wrapper mb-3">
+            <i class="fas fa-utensils fa-3x text-warning"></i>
+          </div>
+          <h5 class="fw-bold">Food</h5>
+          <p class="text-muted">Tastes and cooking experiences</p>
+          <span
+            class="category-count badge bg-warning"
+            data-category-count="Food"
+            >0 Posts</span
+          >
+        </div>
+      </a>
+
+      <!-- Health -->
+      <a
+        href="#"
+        class="text-decoration-none text-dark category-filter"
+        data-category="Health"
+      >
+        <div
+          class="category-item text-center p-4 flex-shrink-0"
+          style="min-width: 250px"
+        >
+          <div class="category-icon-wrapper mb-3">
+            <i class="fas fa-heartbeat fa-3x text-danger"></i>
+          </div>
+          <h5 class="fw-bold">Health</h5>
+          <p class="text-muted">Fitness and wellness journeys</p>
+          <span
+            class="category-count badge bg-danger"
+            data-category-count="Health"
+            >0 Posts</span
+          >
+        </div>
+      </a>
+
+      <!-- Education -->
+      <a
+        href="#"
+        class="text-decoration-none text-dark category-filter"
+        data-category="Education"
+      >
+        <div
+          class="category-item text-center p-4 flex-shrink-0"
+          style="min-width: 250px"
+        >
+          <div class="category-icon-wrapper mb-3">
+            <i class="fas fa-book fa-3x text-secondary"></i>
+          </div>
+          <h5 class="fw-bold">Education</h5>
+          <p class="text-muted">Learning and academic resources</p>
+          <span
+            class="category-count badge bg-secondary"
+            data-category-count="Education"
+            >0 Posts</span
+          >
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Trending Blogs -->
+<section class="py-5">
+  <div class="container">
+    <h2 id="blogSectionHeading" class="text-center mb-5">All Blogs</h2>
+    <div class="row g-4" id="blogsList">
+      <% blogs.forEach(blog => { %>
+      <div
+        class="col-lg-4 col-md-6 mb-4 blog-card-item"
+        data-category="<%= blog.category %>"
+      >
+        <div class="blog-card">
+          <img
+            src="<%= blog.imageUrl || 'https://picsum.photos/400/250?random=1' %>"
+            alt="Blog Image"
+          />
+          <div class="card-body d-flex flex-column flex-grow-1">
+            <span class="badge bg-primary mb-2"><%= blog.category %></span>
+            <h5 class="card-title"><%= blog.title %></h5>
+            <p class="card-text">
+              <%= blog.content.length > 100 ? blog.content.substring(0, 100) +
+              '...' : blog.content %>
+            </p>
+            <div class="mt-auto">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <div class="author-initial">
+                    <%= blog.author?.username?.charAt(0).toUpperCase() || '?' %>
+                  </div>
+                  <small class="text-muted"
+                    >By <%= blog.author?.username || 'Unknown Author' %></small
+                  >
+                </div>
+                <small class="text-muted">
+                  <%= new Date(blog.createdAt).toLocaleDateString('en-US', {
+                  year: 'numeric', month: 'long', day: 'numeric' }) %>
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a
+              href="/blogs/<%= blog._id %>"
+              class="btn btn-outline-primary btn-sm w-100"
+              >Read More</a
+            >
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- NEW: Why Choose Us Section -->
+<section class="why-choose-us py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-bold">Why Choose Our Platform?</h2>
+      <p class="lead text-muted">
+        Everything you need to share your stories with the world
+      </p>
+    </div>
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <div class="feature-list">
+          <div class="feature-item-new d-flex mb-4">
+            <div class="feature-icon-new me-3">
+              <i class="fas fa-edit fa-2x text-primary"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold">Easy Writing Experience</h5>
+              <p class="text-muted">
+                Intuitive editor with rich formatting options to bring your
+                stories to life.
+              </p>
+            </div>
+          </div>
+          <div class="feature-item-new d-flex mb-4">
+            <div class="feature-icon-new me-3">
+              <i class="fas fa-users fa-2x text-success"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold">Engaged Community</h5>
+              <p class="text-muted">
+                Connect with readers and writers who share your interests and
+                passions.
+              </p>
+            </div>
+          </div>
+          <div class="feature-item-new d-flex mb-4">
+            <div class="feature-icon-new me-3">
+              <i class="fas fa-chart-line fa-2x text-info"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold">Track Your Impact</h5>
+              <p class="text-muted">
+                Monitor views, likes, and engagement to understand your audience
+                better.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="feature-visual">
+          <div class="browser-mockup">
+            <div class="browser-header">
+              <div class="browser-buttons">
+                <span class="btn-red"></span>
+                <span class="btn-yellow"></span>
+                <span class="btn-green"></span>
+              </div>
+            </div>
+            <div class="browser-content">
+              <div class="content-line"></div>
+              <div class="content-line short"></div>
+              <div class="content-line"></div>
+              <div class="content-line medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW: Writer Testimonials Section -->
+<section class="writer-testimonials py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-bold">Words of Wisdom from Top Indian Bloggers</h2>
+      <p class="lead text-muted">Insights from India’s most influential storytellers</p>
+    </div>
+    <div class="row g-4">
+      
+      <!-- Amit Agarwal -->
+      <div class="col-lg-4 col-md-6">
+        <div class="testimonial-card-new p-4">
+          <div class="testimonial-content mb-3">
+            <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
+            <p class="text-muted">
+              "Blogging is not about earning money; it's about sharing your passion with the world."
+            </p>
+          </div>
+          <div class="testimonial-author d-flex align-items-center">
+            <img
+              src="assets/image2.jpeg"
+              alt="Amit Agarwal"
+              class="testimonial-avatar me-3 rounded-circle"
+              width="48" height="48"
+            />
+            <div>
+              <h6 class="fw-bold mb-0">Amit Agarwal</h6>
+              <small class="text-muted">Founder, Digital Inspiration</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Harsh Agrawal -->
+      <div class="col-lg-4 col-md-6">
+        <div class="testimonial-card-new p-4">
+          <div class="testimonial-content mb-3">
+            <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
+            <p class="text-muted">
+              "Your blog is your online home. Take time to build it right and create something you're proud of."
+            </p>
+          </div>
+          <div class="testimonial-author d-flex align-items-center">
+            <img
+              src="assets/image.png"
+              alt="Harsh Agrawal"
+              class="testimonial-avatar me-3 rounded-circle"
+              width="48" height="48"
+            />
+            <div>
+              <h6 class="fw-bold mb-0">Harsh Agrawal</h6>
+              <small class="text-muted">Blogger, ShoutMeLoud</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Malini Agarwal -->
+      <div class="col-lg-4 col-md-6">
+        <div class="testimonial-card-new p-4">
+          <div class="testimonial-content mb-3">
+            <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
+            <p class="text-muted">
+              "If your content is honest and engaging, your audience will always find you."
+            </p>
+          </div>
+          <div class="testimonial-author d-flex align-items-center">
+            <img
+              src="assets/malini.jpeg"
+              alt="Malini Agarwal"
+              class="testimonial-avatar me-3 rounded-circle"
+              width="48" height="48"
+            />
+            <div>
+              <h6 class="fw-bold mb-0">Malini Agarwal</h6>
+              <small class="text-muted">Founder, MissMalini</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section text-white py-5">
+  <div class="container text-center">
+    <h2 class="mb-4">Ready to Start Writing?</h2>
+    <p class="lead mb-4">
+      Join thousands of writers sharing their stories and insights
+    </p>
+
+    <!--  -->
+    <% if (!user) { %>
+    <a href="/register" class="btn btn-light btn-lg">Join Our Community</a>
+    <% } %>
+
+    <!-- This button only shows if user IS logged in -->
+    <% if (user) { %>
+  <a href="/blog/create" class="btn btn-light btn-lg">Write a Story</a>
+  <a href="/dashboard" class="btn btn-outline-light btn-lg">My Profile</a>
+  <a href="/logout" class="btn btn-danger btn-lg">Logout</a>
+<% } %>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const blogCards = document.querySelectorAll(".blog-card-item");
+    const blogList = document.getElementById("blogsList");
+    const filters = document.querySelectorAll(".category-filter");
+    const countElements = document.querySelectorAll(".category-count");
+    const heading = document.getElementById("blogSectionHeading");
+
+    // Count blogs in each category
+    const counts = {};
+    blogCards.forEach((card) => {
+      const cat = card.dataset.category;
+      counts[cat] = (counts[cat] || 0) + 1;
+    });
+
+    // Update each badge count
+    countElements.forEach((span) => {
+      const category = span.dataset.categoryCount;
+      const count =
+        category === "All" ? blogCards.length : counts[category] || 0;
+      span.textContent = `${count} Post${count !== 1 ? "s" : ""}`;
+    });
+
+    // Show blogs by category
+    function filterBlogs(category) {
+      blogCards.forEach((card) => {
+        card.style.display =
+          category === "All" || card.dataset.category === category
+            ? "block"
+            : "none";
+      });
+
+      // Change heading
+      heading.textContent =
+        category === "All" ? "All Blogs" : `${category} Blogs`;
+    }
+
+    // Default load: All blogs
+    filterBlogs("All");
+
+    // On click filter logic
+    filters.forEach((filter) => {
+      filter.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const category = filter.dataset.category;
+
+        // Update active class
+        filters.forEach((f) => f.classList.remove("active"));
+        filter.classList.add("active");
+
+        // Filter blogs and update heading
+        filterBlogs(category);
+      });
+    });
+  });
+</script>

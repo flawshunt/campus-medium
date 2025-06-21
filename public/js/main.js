@@ -271,3 +271,34 @@ window.BlogSite = {
   validateField,
   performSearch,
 }
+  document.addEventListener('DOMContentLoaded', () => {
+    const scrollContainer = document.querySelector('.categories-scroll');
+
+    let isDragging = false;
+    let startX;
+    let scrollStart;
+
+    scrollContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      scrollContainer.classList.add('dragging');
+      startX = e.pageX - scrollContainer.offsetLeft;
+      scrollStart = scrollContainer.scrollLeft;
+    });
+
+    scrollContainer.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - scrollContainer.offsetLeft;
+      const walk = (x - startX) * 1.2; // adjust scroll speed
+      scrollContainer.scrollLeft = scrollStart - walk;
+    });
+
+    ['mouseup', 'mouseleave'].forEach(event => {
+      scrollContainer.addEventListener(event, () => {
+        isDragging = false;
+        scrollContainer.classList.remove('dragging');
+      });
+    });
+  });
+
+  

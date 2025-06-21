@@ -13,6 +13,7 @@ app.use(methodOverride('_method'));
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' }); // or your multer config
+const flash = require('connect-flash');
 
 // Access template
 app.set("view engine", "ejs");
@@ -51,6 +52,19 @@ app.use((req, res, next) => {
 
 app.use(blogRoutes);
 
+
+// Setup flash middleware
+app.use(flash());
+
+// Make flash messages available in all views (optional)
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  res.locals.info = req.flash('info');
+  next();
+});
+
+
 // Routes
 app.get("/home", async (req, res) => {
   try {
@@ -61,6 +75,24 @@ app.get("/home", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+// Route to handle category filtering
+app.get("/category/:name", async (req, res) => {
+  try {
+    const categoryName = req.params.name;
+    const blogs = await Blog.find({ category: categoryName }).populate("author");
+
+    res.render("pages/category-blogs", {
+      blogs,
+      categoryName,
+      user: req.session.user
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 
 app.get("/register", (req, res) => {
     res.render("pages/register")
@@ -147,10 +179,19 @@ app.put('/blogs/:id', isAuthor, upload.single('coverImage'), async (req, res) =>
 // Blog Delete
 app.delete('/blogs/:id', isAuthor, async (req, res) => {
   try {
-    await Blog.findByIdAndDelete(req.params.id);
-    res.redirect("/dashboard");
+    const deletedBlog = await Blog.findByIdAndDelete(req.params.id);
+
+    if (!deletedBlog) {
+      req.flash('error', 'Blog not found or already deleted.');
+      return res.redirect('/dashboard');
+    }
+
+    req.flash('success', 'Blog deleted successfully.');
+    res.redirect('/dashboard');
   } catch (err) {
-    res.status(500).send('Server Error');
+    console.error(err);
+    req.flash('error', 'Server error during deletion.');
+    res.redirect('/dashboard');
   }
 });
 

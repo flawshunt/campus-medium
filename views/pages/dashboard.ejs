@@ -1,21 +1,474 @@
 <% layout('layouts/boilerplate') %>
 
+<style>
+:root {
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #0dcaf0;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --border-radius: 0.75rem;
+  --border-radius-sm: 0.5rem;
+  --box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --box-shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --box-shadow-hover: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Styles */
+body {
+  background-color: #f5f7fa;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+/* Alert Styles */
+.alert {
+  border: none;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 2rem;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  color: #155724;
+  border-left: 4px solid var(--success-color);
+}
+
+.alert-info {
+  background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+  color: #0c5460;
+  border-left: 4px solid var(--info-color);
+}
+
+.alert-dismissible .btn-close {
+  padding: 1rem;
+}
+
+/* Welcome Card Styles */
+.welcome-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(30px, -30px);
+}
+
+.welcome-card h1 {
+  font-weight: 700;
+  font-size: 2.25rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
+}
+
+.welcome-card p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.welcome-card .btn-primary {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.875rem 2rem;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.welcome-card .btn-primary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2);
+}
+
+.welcome-card .btn-primary i {
+  font-size: 1.1rem;
+}
+
+/* Section Title */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 2rem;
+  letter-spacing: -0.025em;
+}
+
+/* Blog Card Styles */
+.blog-card {
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+  overflow: hidden;
+  background: white;
+  position: relative;
+}
+
+.blog-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.blog-card .card-img-top {
+  height: 220px;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.blog-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.blog-card .card-body {
+  padding: 1.75rem;
+}
+
+.blog-card .card-title {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+
+.blog-card .card-text {
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.blog-card .card-footer {
+  background: #fafbfc;
+  border-top: 1px solid #e2e8f0;
+  padding: 1.25rem 1.75rem;
+}
+
+/* Badge Styles */
+.badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 0.875rem;
+  border-radius: 2rem;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.badge.bg-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none;
+}
+
+.badge.bg-success {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%) !important;
+  border: none;
+}
+
+.badge.bg-secondary {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%) !important;
+  color: #2d3436 !important;
+  border: none;
+}
+
+/* Enhanced Button Styles */
+.btn {
+  font-weight: 600;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-group .btn {
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  flex: 1;
+  border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+  border-top-left-radius: var(--border-radius-sm);
+  border-bottom-left-radius: var(--border-radius-sm);
+}
+
+.btn-group .btn:last-child {
+  border-top-right-radius: var(--border-radius-sm);
+  border-bottom-right-radius: var(--border-radius-sm);
+}
+
+.btn-outline-primary {
+  border-color: #e2e8f0;
+  color: var(--primary-color);
+  background: white;
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 0.25rem 0.5rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-outline-secondary {
+  border-color: #e2e8f0;
+  color: var(--secondary-color);
+  background: white;
+}
+
+.btn-outline-secondary:hover {
+  background: var(--secondary-color);
+  border-color: var(--secondary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 0.25rem 0.5rem rgba(108, 117, 125, 0.25);
+}
+
+.btn-outline-danger {
+  border-color: #e2e8f0;
+  color: var(--danger-color);
+  background: white;
+}
+
+.btn-outline-danger:hover {
+  background: var(--danger-color);
+  border-color: var(--danger-color);
+  transform: translateY(-1px);
+  box-shadow: 0 0.25rem 0.5rem rgba(220, 53, 69, 0.25);
+}
+
+/* Icon sizes */
+.btn i {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+.btn-lg i {
+  font-size: 1.1rem;
+  margin-right: 0.75rem;
+}
+
+/* Date styling */
+.text-muted {
+  font-size: 0.9rem;
+  color: #64748b !important;
+  font-weight: 500;
+}
+
+/* Modal Styles */
+.modal-content {
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  color: white;
+  border-bottom: none;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.modal-header .btn-close {
+  filter: invert(1);
+}
+
+.modal-body {
+  padding: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.modal-footer {
+  border-top: 1px solid #e2e8f0;
+  padding: 1.5rem 2rem;
+}
+
+/* Loading States */
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  top: 50%;
+  left: 50%;
+  margin-left: -0.5rem;
+  margin-top: -0.5rem;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.empty-state i {
+  font-size: 4rem;
+  color: #cbd5e0;
+  margin-bottom: 1.5rem;
+}
+
+.empty-state h3 {
+  color: var(--dark-color);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.empty-state p {
+  color: #64748b;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .welcome-card .row {
+    text-align: center;
+  }
+  
+  .welcome-card .col-md-4 {
+    margin-top: 1.5rem;
+  }
+  
+  .welcome-card h1 {
+    font-size: 1.875rem;
+  }
+  
+  .welcome-card .btn-primary {
+    width: 100%;
+    padding: 1rem 2rem;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .btn-group .btn {
+    border-radius: var(--border-radius-sm) !important;
+    border: 1px solid #e2e8f0 !important;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+  
+  .blog-card .card-body {
+    padding: 1.5rem;
+  }
+  
+  .blog-card .card-footer {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .welcome-card h1 {
+    font-size: 1.625rem;
+  }
+  
+  .blog-card .card-title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Smooth animations */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Focus states for accessibility */
+.btn:focus,
+.btn:focus-visible {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-outline-danger:focus,
+.btn-outline-danger:focus-visible {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+</style>
+
 <!-- Dashboard Content -->
 <div class="container py-5 mt-4">
+  <!-- Success/Info Messages -->
+  <% if (typeof success !== 'undefined' && success) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="fas fa-check-circle me-2"></i>
+      <strong>Success!</strong> <%= success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+  
+  <% if (typeof info !== 'undefined' && info) { %>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <i class="fas fa-info-circle me-2"></i>
+      <strong>Info:</strong> <%= info %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+
   <!-- Welcome Section -->
   <div class="row mb-5">
     <div class="col-12">
-      <div class="welcome-card p-4 rounded">
+      <div class="welcome-card p-5 rounded">
         <div class="row align-items-center">
           <div class="col-md-8">
-            <h1 class="mb-2">Welcome back, <%= user.username %> 👋</h1>
-            <p class="text-muted mb-0">
-              Ready to share your next story with the world?
+            <h1 class="mb-3">Welcome back, <%= user.username %> 👋</h1>
+            <p class="mb-0">
+              Ready to share your next story with the world? Your creativity awaits!
             </p>
           </div>
           <div class="col-md-4 text-md-end">
-            <a href="/blog/create" class="btn btn-primary btn-lg">
-              <i class="fas fa-plus me-2"></i>Create New Blog
+            <a href="/blog/create" class="btn btn-primary btn-lg shadow-lg">
+              <i class="fas fa-plus"></i>Create New Blog
             </a>
           </div>
         </div>
@@ -23,64 +476,193 @@
     </div>
   </div>
 
-  <!-- Filter and Search -->
+  <!-- My Blogs Section -->
   <div class="row mb-4">
-    <div class="col-md-6">
-      <h2>My Blogs</h2>
+    <div class="col-12">
+      <h2 class="section-title">My Blogs</h2>
     </div>
   </div>
 
+  <!-- Blog Cards Grid -->
   <div class="row" id="blogsContainer">
-    <% blogs.forEach(function(blog) { %>
-    <div
-      class="col-lg-4 col-md-6 mb-4 blog-item"
-      data-status="<%= blog.status.toLowerCase() %>"
-    >
-      <div class="blog-card h-100">
-        <img src="<%= blog.imageUrl %>" class="card-img-top" alt="Blog Image" />
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start mb-2">
-            <span class="badge bg-primary"><%= blog.category %></span>
-            <span
-              class="badge <%= blog.status === 'Published' ? 'bg-success' : 'bg-secondary' %>"
-            >
-              <%= blog.status %>
-            </span>
-          </div>
-          <h5 class="card-title"><%= blog.title %></h5>
-          <p class="card-text"><%= blog.contentPreview %></p>
-          <div class="d-flex justify-content-between align-items-center">
-            <small class="text-muted"
-              ><%= blog.publishDate.toDateString() %></small
-            >
+    <% if (blogs && blogs.length > 0) { %>
+      <% blogs.forEach(function(blog) { %>
+        <div class="col-lg-4 col-md-6 mb-4 blog-item" data-status="<%= blog.status.toLowerCase() %>">
+          <div class="card blog-card h-100">
+            <!-- Blog Image -->
+            <img src="<%= blog.imageUrl || '/images/placeholder-blog.jpg' %>" 
+                 class="card-img-top" 
+                 alt="<%= blog.title %>" 
+                 onerror="this.src='/images/placeholder-blog.jpg'">
+            
+            <!-- Card Body -->
+            <div class="card-body d-flex flex-column">
+              <!-- Badges -->
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="badge bg-primary">
+                  <i class="fas fa-tag me-1"></i><%= blog.category %>
+                </span>
+                <span class="badge <%= blog.status === 'Published' ? 'bg-success' : 'bg-secondary' %>">
+                  <i class="fas <%= blog.status === 'Published' ? 'fa-check-circle' : 'fa-clock' %> me-1"></i>
+                  <%= blog.status %>
+                </span>
+              </div>
+              
+              <!-- Blog Title -->
+              <h5 class="card-title"><%= blog.title %></h5>
+              
+              <!-- Blog Preview -->
+              <p class="card-text flex-grow-1">
+                <%= blog.contentPreview || (blog.content ? blog.content.substring(0, 120) + '...' : 'No preview available') %>
+              </p>
+              
+              <!-- Publish Date -->
+              <div class="mt-auto">
+                <small class="text-muted">
+                  <i class="far fa-calendar-alt me-2"></i>
+                  <%= new Date(blog.publishDate || blog.createdAt).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                  }) %>
+                </small>
+              </div>
+            </div>
+            
+            <!-- Card Footer with Action Buttons -->
+            <div class="card-footer">
+              <div class="btn-group w-100" role="group">
+                <a href="/blogs/<%= blog._id %>" class="btn btn-outline-primary">
+                  <i class="fas fa-eye"></i>View
+                </a>
+                <a href="/blogs/<%= blog._id %>/edit" class="btn btn-outline-secondary">
+                  <i class="fas fa-edit"></i>Edit
+                </a>
+                <button type="button" 
+                        class="btn btn-outline-danger delete-btn" 
+                        data-blog-id="<%= blog._id %>"
+                        data-blog-title="<%= blog.title %>">
+                  <i class="fas fa-trash-alt"></i>Delete
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="card-footer">
-          <div class="btn-group w-100" role="group">
-            <a
-              href="/blogs/<%= blog._id %>"
-              class="btn btn-outline-primary btn-sm"
-            >
-              <i class="fas fa-eye me-1"></i>View
-            </a>
-            <a
-              href="/blogs/<%= blog._id %>/edit"
-              class="btn btn-outline-secondary btn-sm"
-            >
-              <i class="fas fa-edit me-1"></i>Edit
-            </a>
-          <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST" class="d-inline">
-            <button class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure?')">
-              <i class="fas fa-trash me-1"></i>Delete
-            </button>
-          </form>
-          </div>
+      <% }) %>
+    <% } else { %>
+      <!-- Empty State -->
+      <div class="col-12">
+        <div class="empty-state">
+          <i class="far fa-file-alt"></i>
+          <h3>No blogs yet</h3>
+          <p>Start creating your first blog post to see it here. Share your thoughts with the world!</p>
+          <a href="/blog/create" class="btn btn-primary btn-lg">
+            Create Your First Blog
+          </a>
         </div>
       </div>
-    </div>
-    <% }) %>
+    <% } %>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/dashboard.js"></script>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">
+          <i class="fas fa-exclamation-triangle me-2"></i>Confirm Deletion
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-3">Are you sure you want to delete the blog post:</p>
+        <p class="fw-bold text-danger mb-3" id="blogTitleToDelete"></p>
+        <p class="mb-0">
+          <i class="fas fa-info-circle text-warning me-2"></i>
+          This action cannot be undone. All comments and interactions will be permanently lost.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="fas fa-times me-2"></i>Cancel
+        </button>
+        <form id="deleteForm" method="POST" class="d-inline">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">
+            <i class="fas fa-trash-alt me-2"></i>Delete Permanently
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Delete confirmation modal
+  const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+  const deleteForm = document.getElementById('deleteForm');
+  const blogTitleElement = document.getElementById('blogTitleToDelete');
+  const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+  
+  // Handle delete button clicks
+  document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const blogId = this.getAttribute('data-blog-id');
+      const blogTitle = this.getAttribute('data-blog-title');
+      
+      // Set form action and blog title
+      deleteForm.action = `/blogs/${blogId}?_method=DELETE`;
+      blogTitleElement.textContent = `"${blogTitle}"`;
+      
+      // Show modal
+      deleteModal.show();
+    });
+  });
+  
+  // Handle form submission with loading state
+  deleteForm.addEventListener('submit', function() {
+    confirmDeleteBtn.classList.add('btn-loading');
+    confirmDeleteBtn.disabled = true;
+    
+    // Add a small delay to show loading state
+    setTimeout(() => {
+      this.submit();
+    }, 500);
+  });
+  
+  // Auto-dismiss alerts after 5 seconds
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      const bsAlert = new bootstrap.Alert(alert);
+      bsAlert.close();
+    });
+  }, 5000);
+  
+  // Add smooth scroll for any anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+  
+  // Add loading states to action buttons
+  document.querySelectorAll('.btn-outline-primary, .btn-outline-secondary').forEach(button => {
+    button.addEventListener('click', function() {
+      if (!this.classList.contains('delete-btn')) {
+        this.classList.add('btn-loading');
+        this.disabled = true;
+      }
+    });
+  });
+});
+</script>
